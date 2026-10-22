@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#15132b">
+<title>Norma Kelas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f4ff; --paper:#ffffff; --ink:#15132b; --ink-2:#4b4868; --line:#15132b;
+  --lime:#c6f432; --coral:#ff6b5b; --sky:#5bc8ff; --sun:#ffd23f; --lilac:#b9a7ff;
+  --good:#1fa463; --bad:#e2412f; --soft:#ece9ff;
+  --display:"Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --body:"DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+  --r:18px; --sh:4px 4px 0 var(--line);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121026; --paper:#1d1a3a; --ink:#f3f1ff; --ink-2:#bdb8e3; --line:#0a0918; --soft:#2a2652; color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121026; --paper:#1d1a3a; --ink:#f3f1ff; --ink-2:#bdb8e3; --line:#0a0918; --soft:#2a2652; color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{background:var(--bg); color:var(--ink); font:16px/1.5 var(--body); margin:0;
+  background-image:radial-gradient(var(--soft) 1.2px, transparent 1.2px); background-size:22px 22px;}
+.app{max-width:560px; margin:0 auto; min-height:100%; display:flex; flex-direction:column;
+  padding-left:max(16px, env(safe-area-inset-left,0px)); padding-right:max(16px, env(safe-area-inset-right,0px)); padding-block:16px 28px}
+h1,h2,h3{font-family:var(--display); line-height:1.08; margin:0; text-wrap:balance; letter-spacing:-.01em}
+p{margin:0}
+button{font:inherit; color:inherit}
+.muted{color:var(--ink-2)}
+.tiny{font-size:.82rem}
+
+.card{background:var(--paper); border:2.5px solid var(--line); border-radius:var(--r); box-shadow:var(--sh); padding:20px}
+.stack{display:flex; flex-direction:column; gap:14px}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:52px; padding:12px 20px;
+  border:2.5px solid var(--line); border-radius:14px; background:var(--lime); color:#15132b; font:800 1.02rem var(--display);
+  box-shadow:var(--sh); cursor:pointer; transition:transform .08s, box-shadow .08s; text-align:center}
+.btn:active{transform:translate(3px,3px); box-shadow:1px 1px 0 var(--line)}
+.btn:disabled{opacity:.45; cursor:not-allowed; transform:none}
+.btn.alt{background:var(--paper); color:var(--ink)}
+.btn.block{width:100%}
+.btn:focus-visible,.chip:focus-visible,.link:focus-visible{outline:3px solid var(--sky); outline-offset:3px}
+.link{background:none; border:0; padding:6px; cursor:pointer; text-decoration:underline; font-weight:700; color:var(--ink-2); align-self:center}
+.eyebrow{font:800 .74rem var(--mono); letter-spacing:.12em; text-transform:uppercase}
+.tag{display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border:2px solid var(--line); border-radius:99px; font:800 .74rem var(--mono); background:var(--sun); color:#15132b; letter-spacing:.06em; align-self:flex-start}
+
+.hero{position:relative; overflow:hidden; background:#15132b; color:#fff; border-color:#000}
+.hero h1{font-size:clamp(2.6rem,11vw,3.5rem); font-weight:800; line-height:.92}
+.hero h1 em{font-style:normal; color:var(--lime)}
+.hero p{color:#d9d6f5}
+.sticker{position:absolute; border:2.5px solid #000; border-radius:14px; font:800 .8rem var(--display); padding:6px 10px; color:#15132b; box-shadow:3px 3px 0 #000}
+.field{display:flex; flex-direction:column; gap:6px; font-weight:700}
+.input{width:100%; min-height:52px; padding:12px 14px; border:2.5px solid var(--line); border-radius:14px; background:var(--paper); color:var(--ink); font:600 1.05rem var(--body)}
+.input:focus{outline:3px solid var(--sky); outline-offset:2px}
+.input.code{text-transform:uppercase; letter-spacing:.2em; font-family:var(--mono)}
+textarea.input{min-height:84px; resize:vertical}
+.roomline{display:flex; align-items:center; gap:10px; padding:10px 12px; border:2px dashed var(--line); border-radius:14px; background:var(--soft); font-weight:700}
+.roomline b{font-family:var(--mono); letter-spacing:.12em}
+
+.q{font:700 1.25rem/1.25 var(--display)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{min-height:46px; padding:10px 14px; border:2.5px solid var(--line); border-radius:99px; background:var(--paper); cursor:pointer; font-weight:700; box-shadow:2px 2px 0 var(--line); text-align:left}
+.chip.on{background:var(--lime); color:#15132b}
+.counter{display:flex; gap:6px; align-items:center; font:800 .85rem var(--mono)}
+.counter i{width:26px; height:10px; border-radius:99px; border:2px solid var(--line); background:var(--paper)}
+.counter i.on{background:var(--lime)}
+.mine{list-style:none; margin:0; padding:0; display:grid; gap:8px}
+.mine li{display:flex; gap:10px; align-items:center; padding:10px 12px; border:2px solid #0f3d26; border-radius:12px; background:#ffffffa0; font-weight:700}
+.mine li span{width:28px; height:28px; flex:none; display:grid; place-items:center; border-radius:8px; background:#0f3d26; color:#fff; font:800 .85rem var(--mono)}
+
+.fb{border:2.5px solid var(--line); border-radius:14px; padding:12px 14px; font-size:.95rem; box-shadow:3px 3px 0 var(--line)}
+.fb.good{background:#d6f7e5; color:#0f3d26} .fb.bad{background:#ffe9c7; color:#5a3a00}
+.done{background:#d6f7e5; color:#0f3d26}
+.done h2{font-size:1.9rem}
+
+.guide h3{font-size:1.1rem; margin-top:4px}
+.guide ol,.guide ul{margin:6px 0 0; padding-left:20px; display:grid; gap:6px}
+.time{font:800 .78rem var(--mono); background:var(--sky); color:#15132b; border:2px solid var(--line); border-radius:8px; padding:1px 7px}
+hr.dash{border:0; border-top:2px dashed var(--line); width:100%; margin:0}
+
+.pop{animation:pop .35s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pop{from{transform:scale(.92); opacity:.2}}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+canvas.confetti{position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:40}
+
+/* ---- papan pengajar ---- */
+body.wide .app{max-width:1400px}
+body.wide .foot{color:#bdb8e3}
+body.wide{background:#15132b; background-image:radial-gradient(#2a2652 1.2px, transparent 1.2px)}
+.board{color:#fff; display:flex; flex-direction:column; gap:16px}
+.bhead{display:flex; gap:16px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap}
+.btitle{min-width:0; flex:1 1 300px} .btitle h1{font-size:clamp(1.6rem,3.4vw,2.6rem)}
+.bjoin{display:flex; gap:14px; align-items:center; background:#fff; color:#15132b; border:3px solid #000; border-radius:18px; padding:12px 14px; box-shadow:5px 5px 0 #000}
+.bjoin small{display:block; font:800 .66rem var(--mono); letter-spacing:.1em; text-transform:uppercase; color:#4b4868}
+.bjoin .burl{display:block; font:700 .9rem var(--body); word-break:break-all; max-width:260px; margin-bottom:4px}
+.bjoin .bcode{display:block; font:800 2.4rem/1 var(--mono); letter-spacing:.12em}
+.qr{width:132px; height:132px; flex:none} .qr svg{width:132px; height:132px; display:block}
+.bgrid{display:grid; grid-template-columns:minmax(0,1fr) 340px; gap:16px; align-items:start}
+.cloudwrap{background:#1d1a3a; border:3px solid #000; border-radius:22px; box-shadow:6px 6px 0 #000; padding:20px; min-height:420px; display:flex; flex-direction:column}
+.cloud{flex:1; display:flex; padding:10px 0; flex-wrap:wrap; justify-content:center; align-content:center; align-items:center; gap:6px 22px; min-height:360px; text-align:center}
+.word{font-family:var(--display); line-height:1.05; transition:font-size .6s cubic-bezier(.3,1.4,.5,1), color .4s; letter-spacing:-.01em; cursor:default}
+.cloud.mod .word{cursor:pointer} .cloud.mod .word:hover{text-decoration:line-through}
+.cloud-empty{color:#bdb8e3; font:700 1.2rem var(--display); text-align:center} .cloud-empty small{font:500 .95rem var(--body)}
+.bstat{font:700 .9rem var(--mono); color:#bdb8e3; text-align:center; margin-top:10px}
+.bstat span#bTotal{color:var(--lime); font-size:1.2rem}
+.bside{display:flex; flex-direction:column; gap:14px; min-width:0}
+.bpanel{background:#1d1a3a; border:3px solid #000; border-radius:18px; box-shadow:5px 5px 0 #000; padding:16px; display:flex; flex-direction:column; gap:10px}
+.bpanel h3{font-size:1.05rem}
+.top3{list-style:none; margin:0; padding:0; display:grid; gap:12px}
+.top3 li{display:flex; gap:10px; align-items:flex-start}
+.t3n{width:32px; height:32px; flex:none; display:grid; place-items:center; border:2px solid #000; border-radius:10px; font:800 1rem var(--mono); color:#15132b}
+.t3b{flex:1; min-width:0} .t3b b{font-family:var(--display); display:block; line-height:1.2}
+.t3b small{color:#bdb8e3}
+.t3bar{height:10px; background:#15132b; border:2px solid #000; border-radius:99px; overflow:hidden; margin:5px 0 3px} .t3bar i{display:block; height:100%; transition:width .6s}
+.rank{list-style:none; margin:0; padding:0; display:grid; gap:6px; max-height:260px; overflow:auto; font-size:.9rem}
+.rank li{display:grid; grid-template-columns:26px 1fr auto; gap:8px; align-items:center; background:#15132b; border-radius:10px; padding:6px 10px}
+.rank li span:first-child{font:800 .8rem var(--mono); color:#bdb8e3} .rank li span:last-child{font:800 .85rem var(--mono); color:var(--lime)}
+.proms{list-style:none; margin:0; padding:0; display:grid; gap:8px; max-height:300px; overflow:auto; font-size:.9rem}
+.proms li{background:#15132b; border-radius:10px; padding:8px 10px}
+.bctl{display:flex; flex-wrap:wrap; gap:8px}
+.bctl .btn{min-height:44px; padding:8px 14px; font-size:.9rem; box-shadow:3px 3px 0 #000; border-color:#000}
+body.wide .bctl .btn.alt{background:#1d1a3a; color:#fff}
+@media (max-width:900px){ .bgrid{grid-template-columns:1fr} .bjoin .bcode{font-size:1.8rem} }
+@media (prefers-reduced-motion: reduce){*{animation:none!important; transition:none!important}}
+.row{display:flex; gap:10px; flex-wrap:wrap}
+.row > *{flex:1 1 140px}
+.foot{margin-top:auto; padding-top:24px; text-align:center; font-size:.76rem; color:var(--ink-2)}
+</style>
+
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script>window.qrcode || document.write('<script src="vendor/qrcode-generator-1.4.4.js"><\/script>')</script>
+</head>
+<body>
+<div class="app">
+  <main id="screen" class="stack" aria-live="polite"></main>
+  <p class="foot">Pusat Pelatihan Sumber Daya Manusia Arsip Nasional Republik Indonesia · Mata Pelatihan Building Learning Commitment</p>
+</div>
+
+<script>
+/* ============ DATA ============ */
+// Ubah daftar norma di sini bila perlu (tiap norma maksimal 40 karakter).
+const NORMS = ["Hadir tepat waktu","Kamera on saat diskusi","HP mode senyap saat sesi","Menghargai setiap pendapat","Aktif bertanya dan berbagi",
+  "Tugas selesai sebelum tenggat","Saling bantu teman yang kesulitan","Jujur dalam mengerjakan tugas","Fokus, tanpa nyambi kerjaan kantor","Berani memberi dan menerima umpan balik"];
+const PICK = 3;   // jumlah norma yang dipilih tiap peserta (1–3)
+
+/* ============ STATE ============ */
+const KEY = "norma-kelas:v1";
+const fresh = () => ({name:"", screen:"home", room:"", roomTitle:"", norms:[], custom:"", promise:"", sent:false});
+let S = fresh();
+try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(fresh(), JSON.parse(raw)); } catch(e) {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e) {} };
+const $ = (s, r=document) => r.querySelector(s);
+const screen = $("#screen");
+const esc = (t) => String(t).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const cleanCode = (v) => String(v || "").toUpperCase().replace(/[^A-Z0-9]/g,"");
+
+/* ============ SERVER (Supabase RPC, hanya publishable key) ============ */
+const CFG = window.KQ_CONFIG || {};
+const ONLINE = Boolean(CFG.SUPABASE_URL && CFG.SUPABASE_KEY && !/xxxx|ISI_/.test(CFG.SUPABASE_URL + CFG.SUPABASE_KEY));
+async function api(fn, args){
+  if (!ONLINE) throw new Error("Aplikasi belum tersambung ke database (config.js belum diisi).");
+  const key = CFG.SUPABASE_KEY.trim();
+  const headers = {"Content-Type":"application/json", apikey:key};
+  if (key.startsWith("eyJ")) headers.Authorization = "Bearer " + key;
+  let res;
+  try { res = await fetch(CFG.SUPABASE_URL.replace(/\/+$/,"") + "/rest/v1/rpc/" + fn, {method:"POST", headers, body:JSON.stringify(args)}); }
+  catch(e) { throw new Error("Koneksi internet bermasalah. Coba lagi."); }
+  const txt = await res.text(); let data = null; try { data = txt ? JSON.parse(txt) : null; } catch(e) {}
+  if (!res.ok) throw new Error((data && (data.message || data.hint)) || `Server menolak (${res.status})`);
+  return data;
+}
+const CID = "norma-kelas:client";
+function clientId(){
+  let id = null;
+  try { id = localStorage.getItem(CID); } catch(e) {}
+  if (!id) {
+    const b = crypto.getRandomValues(new Uint8Array(16)); b[6] = (b[6] & 15) | 64; b[8] = (b[8] & 63) | 128;
+    const h = [...b].map(x => x.toString(16).padStart(2,"0")).join("");
+    id = `${h.slice(0,8)}-${h.slice(8,12)}-${h.slice(12,16)}-${h.slice(16,20)}-${h.slice(20)}`;
+    try { localStorage.setItem(CID, id); } catch(e) {}
+  }
+  return id;
+}
+const myNorms = () => S.norms.map(n => n === "__custom" ? S.custom.trim() : n).filter(Boolean);
+const ADMIN_KEY = (code) => "norma-kelas:admin:" + code;
+const getToken = (code) => { try { return localStorage.getItem(ADMIN_KEY(code)) || ""; } catch(e) { return ""; } };
+const setToken = (code, t) => { try { localStorage.setItem(ADMIN_KEY(code), t); } catch(e) {} };
+const baseUrl = () => location.origin + location.pathname;
+function newParticipant(){ S = fresh(); try { localStorage.removeItem(CID); } catch(e) {} save(); }
+
+/* ============ FX ============ */
+function confetti(ms=2200){
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const c = document.createElement("canvas"); c.className = "confetti"; document.body.appendChild(c);
+  const x = c.getContext("2d"), dpr = devicePixelRatio || 1; c.width = innerWidth*dpr; c.height = innerHeight*dpr;
+  const cols = ["#c6f432","#ff6b5b","#5bc8ff","#ffd23f","#b9a7ff","#15132b"];
+  const ps = Array.from({length:120}, () => ({x:Math.random()*c.width, y:-Math.random()*c.height*.6, w:(6+Math.random()*8)*dpr, h:(4+Math.random()*5)*dpr,
+    vy:(2+Math.random()*4)*dpr, vx:(Math.random()-.5)*3*dpr, a:Math.random()*6, va:(Math.random()-.5)*.3, c:cols[Math.random()*cols.length|0]}));
+  const t0 = performance.now();
+  (function f(t){ x.clearRect(0,0,c.width,c.height);
+    ps.forEach(p => { p.x+=p.vx; p.y+=p.vy; p.a+=p.va; x.save(); x.translate(p.x,p.y); x.rotate(p.a); x.fillStyle=p.c; x.fillRect(-p.w/2,-p.h/2,p.w,p.h); x.restore(); });
+    if (t - t0 < ms) requestAnimationFrame(f); else c.remove(); })(t0);
+}
+function armed(btn, confirmText, fn){
+  if (btn.dataset.armed) { fn(); return; }
+  const orig = btn.textContent; btn.dataset.armed = "1"; btn.textContent = confirmText; btn.style.background = "var(--coral)"; btn.style.color = "#15132b";
+  setTimeout(() => { if (btn.isConnected) { delete btn.dataset.armed; btn.textContent = orig; btn.style.background = ""; btn.style.color = ""; } }, 4000);
+}
+const note = (id, t, bad) => { const e = $("#" + id); if (e) e.innerHTML = t ? `<div class="fb ${bad ? "bad" : "good"} ${bad ? "shake" : ""}">${esc(t)}</div>` : ""; };
+
+/* ============ NAV ============ */
+function go(name){ S.screen = name; save(); render(); window.scrollTo({top:0, behavior:"smooth"}); }
+function render(){
+  if (S.screen !== "board") { stopBoard(); document.body.classList.remove("wide"); }
+  ({home, pick, done, teach, board: boardScreen}[S.screen] || home)();
+}
+
+/* ============ PESERTA ============ */
+function home(){
+  screen.innerHTML = `
+  <section class="card hero pop stack" style="padding:24px 20px 26px">
+    <span class="sticker" style="right:14px; top:14px; background:var(--sun); transform:rotate(8deg)">BLC</span>
+    <span class="sticker" style="right:44px; top:58px; background:var(--lime); transform:rotate(-6deg)">✓✓✓</span>
+    <span class="eyebrow" style="color:var(--lime)">Kontrak Belajar Kelas</span>
+    <h1>Norma<br><em>Kelas</em></h1>
+    <p>Pilih ${PICK} norma yang paling ingin kamu jaga bersama selama pelatihan. Pilihan semua peserta langsung tampil di layar pengajar. Yang paling banyak dipilih tampil paling besar.</p>
+  </section>
+  ${ONLINE ? `<form class="card stack" id="startForm">
+    <label class="field" for="nick">Nama panggilanmu<input class="input" id="nick" maxlength="24" placeholder="mis. Rina" value="${esc(S.name)}" autocomplete="off"></label>
+    <label class="field" for="room">Kode kelas <span class="tiny muted" style="font-weight:500">(5 huruf/angka dari pengajar)</span>
+      <input class="input code" id="room" maxlength="5" placeholder="mis. K7QMB" value="${esc(S.room)}" autocomplete="off" inputmode="text"></label>
+    ${S.roomTitle ? `<p class="tiny" style="font-weight:700">Kelas: ${esc(S.roomTitle)}</p>` : ""}
+    <div id="homeMsg"></div>
+    ${S.sent ? `<p class="fb good">Kamu sudah mengirim pilihan${S.name ? `, ${esc(S.name)}` : ""}. Tekan tombol di bawah untuk melihat atau mengubahnya.</p>` : ""}
+    <button class="btn block" type="submit">${S.sent ? "Lihat pilihanku" : "Lanjut pilih norma"} →</button>
+    ${S.name || S.room ? `<button class="btn alt block" type="button" id="newP">Ganti peserta (HP dipakai orang lain)</button>` : ""}
+  </form>` : `<div class="fb bad">Aplikasi belum tersambung ke database. Pengajar perlu mengisi file <b>config.js</b>.</div>`}
+  <button class="link" id="toTeach" type="button">Saya pengajar →</button>`;
+  $("#toTeach").onclick = () => go("teach");
+  if (!ONLINE) return;
+  const roomIn = $("#room"); roomIn.oninput = () => { roomIn.value = cleanCode(roomIn.value); };
+  $("#startForm").onsubmit = async (e) => {
+    e.preventDefault();
+    const n = $("#nick").value.trim(), code = roomIn.value;
+    if (!n) { $("#nick").classList.add("shake"); $("#nick").focus(); setTimeout(() => $("#nick").classList.remove("shake"), 400); return; }
+    if (code.length !== 5) { note("homeMsg", "Kode kelas terdiri dari 5 huruf/angka. Tanyakan ke pengajar.", true); roomIn.focus(); return; }
+    const btn = e.target.querySelector("[type=submit]"); btn.disabled = true; btn.textContent = "Memeriksa kode…";
+    try {
+      const info = await api("kq_room_info", {p_code:code});
+      if (info.code !== S.room) { S.sent = false; }
+      if (n !== S.name && S.sent) S.sent = false;   // nama berubah: kirim ulang agar nama terbaru tersimpan
+      S.name = n; S.room = info.code; S.roomTitle = info.title; save();
+      go(S.sent ? "done" : "pick");
+    } catch(err) { note("homeMsg", err.message, true); btn.disabled = false; btn.textContent = "Lanjut pilih norma →"; }
+  };
+  const np = $("#newP"); if (np) np.onclick = () => armed(np, "Yakin? Data di HP ini dihapus. Klik lagi", () => {
+    newParticipant(); home(); note("homeMsg", "Siap untuk peserta baru. Isi nama dan kode kelas."); $("#nick").focus(); });
+}
+
+function pick(){
+  if (!S.room) return go("home");
+  screen.innerHTML = `<section class="card stack pop">
+    <div class="roomline"><span>Kelas</span><b>${esc(S.room)}</b><span class="muted" style="font-weight:600; flex:1; min-width:0">${esc(S.roomTitle)}</span></div>
+    <p class="q">Hai ${esc(S.name)}! Pilih ${PICK} norma kelas yang paling ingin kamu jaga</p>
+    <div class="counter" id="cnt"></div>
+    <div class="chips">${NORMS.map((n,i) => `<button type="button" class="chip ${S.norms.includes(n)?"on":""}" data-i="${i}" aria-pressed="${S.norms.includes(n)}">${esc(n)}</button>`).join("")}
+      <button type="button" class="chip ${S.norms.includes("__custom")?"on":""}" data-i="custom" aria-pressed="${S.norms.includes("__custom")}">✏️ Norma lain…</button></div>
+    <label class="field" for="customNorm" id="customWrap" ${S.norms.includes("__custom") ? "" : "hidden"}>Tulis norma usulanmu
+      <input class="input" id="customNorm" maxlength="40" placeholder="mis. Kamera on saat presentasi teman" value="${esc(S.custom)}" autocomplete="off"></label>
+  </section>
+  <section class="card stack">
+    <label class="field" for="promise">Janji pribadiku <span class="tiny muted" style="font-weight:500">(boleh dikosongkan)</span>
+      <textarea class="input" id="promise" maxlength="120" placeholder="mis. Aku akan bertanya minimal sekali di setiap sesi.">${esc(S.promise)}</textarea></label>
+    <p class="tiny muted">Pilihan dan janjimu tampil di layar pengajar <b>tanpa nama</b>. Hindari menulis data pribadi.</p>
+  </section>
+  <div id="pickMsg"></div>
+  <button class="btn block" id="send" type="button">Kirim ke papan kelas 🚀</button>
+  <button class="btn alt block" id="back" type="button">← Kembali</button>`;
+  const upd = () => { $("#cnt").innerHTML = Array.from({length:PICK}, (_,k) => `<i class="${k < S.norms.length ? "on" : ""}"></i>`).join("") + `<span>${S.norms.length} / ${PICK} dipilih</span>`; };
+  upd();
+  $("#customNorm").oninput = (e) => { S.custom = e.target.value; save(); };
+  screen.querySelectorAll(".chip").forEach(c => c.onclick = () => {
+    const n = c.dataset.i === "custom" ? "__custom" : NORMS[+c.dataset.i];
+    if (S.norms.includes(n)) S.norms = S.norms.filter(x => x !== n);
+    else if (S.norms.length < PICK) S.norms.push(n);
+    else { c.classList.add("shake"); setTimeout(() => c.classList.remove("shake"), 400); note("pickMsg", `Maksimal ${PICK} norma. Batalkan salah satu dulu.`, true); return; }
+    note("pickMsg", "");
+    c.classList.toggle("on", S.norms.includes(n)); c.setAttribute("aria-pressed", S.norms.includes(n));
+    $("#customWrap").hidden = !S.norms.includes("__custom");
+    if (n === "__custom" && S.norms.includes(n)) $("#customNorm").focus();
+    upd(); save();
+  });
+  $("#promise").oninput = (e) => { S.promise = e.target.value; save(); };
+  $("#back").onclick = () => go("home");
+  $("#send").onclick = async () => {
+    if (S.norms.length !== PICK) { note("pickMsg", `Pilih tepat ${PICK} norma dulu ya.`, true); return; }
+    if (S.norms.includes("__custom") && S.custom.trim().length < 3) { note("pickMsg", "Tulis norma usulanmu dulu (minimal 3 huruf).", true); $("#customNorm").focus(); return; }
+    const b = $("#send"); b.disabled = true; b.textContent = "Mengirim…";
+    try {
+      await api("kq_submit", {p_code:S.room, p_client:clientId(), p_name:S.name, p_arch:null, p_norms:myNorms(), p_promise:S.promise.trim(), p_xp:0});
+      S.sent = true; save(); go("done"); confetti();
+    } catch(err) { note("pickMsg", err.message, true); b.disabled = false; b.textContent = "Coba kirim lagi 🚀"; }
+  };
+}
+
+function done(){
+  if (!S.sent) return go(S.room ? "pick" : "home");
+  screen.innerHTML = `<section class="card stack pop done">
+    <span class="tag" style="background:var(--lime)">TERKIRIM ✓</span>
+    <h2>Makasih, ${esc(S.name)}!</h2>
+    <p>Pilihanmu sudah masuk ke papan kelas <b>${esc(S.roomTitle || S.room)}</b>. Lihat layar pengajar, norma mana yang paling besar?</p>
+    <ul class="mine">${myNorms().map((n,i) => `<li><span>${i+1}</span>${esc(n)}</li>`).join("")}</ul>
+    ${S.promise.trim() ? `<p><b>Janjiku:</b> “${esc(S.promise.trim())}”</p>` : ""}
+  </section>
+  <button class="btn alt block" id="edit" type="button">Ubah pilihan</button>
+  <button class="btn alt block" id="newP" type="button">Ganti peserta (HP dipakai orang lain)</button>
+  <p class="tiny muted" style="text-align:center">Mengubah pilihan akan <b>mengganti</b> kirimanmu sebelumnya, bukan menambah suara.</p>`;
+  $("#edit").onclick = () => go("pick");
+  $("#newP").onclick = () => armed($("#newP"), "Yakin? Klik lagi", () => { newParticipant(); go("home"); note("homeMsg", "Siap untuk peserta baru. Isi nama dan kode kelas."); });
+}
+
+/* ============ PENGAJAR ============ */
+function teach(){
+  screen.innerHTML = `<section class="card stack pop" id="roomCard">
+    <span class="tag">UNTUK PENGAJAR</span>
+    <h2 style="font-size:1.8rem">Papan Norma Kelas</h2>
+    ${ONLINE ? `<p class="muted">Buat kelas, tayangkan papannya di Zoom/proyektor, lalu minta peserta scan QR. Norma yang paling banyak dipilih tampil paling besar.</p>
+    <form id="mkRoom" class="stack"><label class="field" for="roomTitle">Nama kelas<input class="input" id="roomTitle" maxlength="80" placeholder="mis. PFA Keterampilan Angkatan V" autocomplete="off"></label>
+      <button class="btn block" type="submit">Buat kelas baru</button></form>
+    <div id="mkErr"></div>
+    <hr class="dash">
+    <form id="openRoom" class="stack"><label class="field" for="openCode">Sudah punya kelas? Buka papannya
+      <input class="input code" id="openCode" maxlength="5" placeholder="Kode kelas" autocomplete="off"></label>
+      <button class="btn alt block" type="submit">Buka papan</button></form>`
+    : `<div class="fb bad">Fitur ini aktif setelah file <b>config.js</b> diisi (lihat PANDUAN-SETUP).</div>`}
+  </section>
+  <section class="card stack guide">
+    <h3>Alur singkat (±15 menit)</h3>
+    <ol>
+      <li><span class="time">2'</span> Buat kelas, lalu tayangkan papan (tombol <b>Layar penuh</b>).</li>
+      <li><span class="time">5'</span> Peserta scan QR atau buka tautan, isi nama, pilih ${PICK} norma, lalu kirim.</li>
+      <li><span class="time">3'</span> Tekan <b>Tutup pengisian</b>. Bacakan 3 kandidat teratas.</li>
+      <li><span class="time">5'</span> Diskusikan: "Apa konsekuensi yang adil bila norma ini dilanggar?" Tetapkan sebagai kontrak belajar.</li>
+    </ol>
+    <h3>Catatan</h3>
+    <ul>
+      <li>Satu HP dihitung satu suara. Kirim ulang akan mengganti pilihan lama.</li>
+      <li>Nama peserta tidak tampil di papan.</li>
+      <li>Kode kelas dari Komitmen Quest juga bisa dipakai di sini, dan sebaliknya.</li>
+    </ul>
+  </section>
+  <button class="btn alt block" id="back" type="button">← Halaman peserta</button>`;
+  $("#back").onclick = () => go("home");
+  if (!ONLINE) return;
+  $("#openCode").oninput = (e) => { e.target.value = cleanCode(e.target.value); };
+  $("#mkRoom").onsubmit = async (e) => {
+    e.preventDefault(); const t = $("#roomTitle").value.trim(); const b = e.target.querySelector("button");
+    if (t.length < 3) { $("#mkErr").innerHTML = `<div class="fb bad">Nama kelas minimal 3 karakter.</div>`; return; }
+    b.disabled = true;
+    try { const r = await api("kq_create_room", {p_title:t}); setToken(r.code, r.token); openBoard(r.code); }
+    catch(err) { $("#mkErr").innerHTML = `<div class="fb bad">${esc(err.message)}</div>`; b.disabled = false; }
+  };
+  $("#openRoom").onsubmit = (e) => { e.preventDefault(); const c = $("#openCode").value; if (c) openBoard(c); };
+}
+
+/* ---- Papan (word cloud) ---- */
+let board = {code:"", timer:null, data:null, sig:"", moderate:false, showPromises:false, words:new Map()};
+function openBoard(code){ board.code = cleanCode(code); board.data = null; history.replaceState(null, "", `${baseUrl()}?papan=${board.code}`); go("board"); }
+const CLOUD_COLORS = ["#c6f432","#ff6b5b","#5bc8ff","#ffd23f","#b9a7ff","#7cf0c0","#ff9ad5","#ffffff"];
+function boardScreen(){
+  document.body.classList.add("wide");
+  const code = board.code; const token = getToken(code);
+  const joinUrl = `${baseUrl()}?kelas=${code}`;
+  screen.innerHTML = `<section class="board">
+    <header class="bhead">
+      <div class="btitle"><span class="eyebrow" style="color:var(--lime)">Norma Kelas · Kontrak Belajar</span><h1 id="bTitle">Memuat…</h1></div>
+      <div class="bjoin"><div><small>Buka</small><b class="burl">${esc(joinUrl.replace(/^https?:\/\//,""))}</b><small>Kode kelas</small><b class="bcode">${esc(code)}</b></div>
+        <div id="qr" class="qr" aria-label="Kode QR untuk bergabung"></div></div>
+    </header>
+    <div class="bgrid">
+      <div class="cloudwrap"><div class="cloud ${board.moderate ? "mod" : ""}" id="cloud" aria-live="polite"></div>
+        <div class="bstat"><span id="bTotal">0</span> peserta mengirim · <span id="bOpen"></span>${board.moderate ? ' · <b style="color:var(--coral)">MODE MODERASI: klik kata untuk menyembunyikan</b>' : ""}</div></div>
+      <aside class="bside">
+        <div class="bpanel"><h3>Kandidat kontrak belajar</h3><ol class="top3" id="top3"></ol></div>
+        <div class="bpanel"><h3>Peringkat semua norma</h3><ol class="rank" id="rank"></ol></div>
+        <div class="bpanel" id="promPanel" ${board.showPromises ? "" : "hidden"}><h3>Janji peserta</h3><ul class="proms" id="proms"></ul></div>
+      </aside>
+    </div>
+    <div class="bctl">
+      ${token ? `<button class="btn alt" id="bToggle">Tutup pengisian</button>
+        <button class="btn alt" id="bMod">${board.moderate ? "Selesai moderasi" : "Moderasi kata"}</button>
+        <button class="btn alt" id="bUnhide">Tampilkan kata tersembunyi</button>
+        <button class="btn alt" id="bReset">Reset jawaban</button>` : `<span class="tiny" style="color:#bdb8e3">Mode lihat saja. Buka papan dari perangkat pembuat kelas, atau pakai tautan kendali, untuk mengatur.</span>`}
+      <button class="btn alt" id="bProm">${board.showPromises ? "Sembunyikan janji" : "Tampilkan janji"}</button>
+      <button class="btn alt" id="bCopy">Salin tautan peserta</button>
+      ${token ? `<button class="btn alt" id="bAdmin">Salin tautan kendali</button>` : ""}
+      <button class="btn alt" id="bFull">Layar penuh</button>
+      <button class="btn alt" id="bBack">Keluar</button>
+    </div>
+    <div id="bMsg"></div>
+  </section>`;
+  board.words = new Map(); board.sig = "";
+  try { const qr = qrcode(0, "M"); qr.addData(joinUrl); qr.make(); $("#qr").innerHTML = qr.createSvgTag({cellSize:4, margin:0, scalable:true}); } catch(e) { $("#qr").hidden = true; }
+  const msg = (t, bad) => { $("#bMsg").innerHTML = t ? `<div class="fb ${bad?"bad":"good"}" style="margin-top:10px">${esc(t)}</div>` : ""; if (t) setTimeout(() => { const m = $("#bMsg"); if (m) m.innerHTML = ""; }, 4000); };
+  const copy = async (text, label) => { try { await navigator.clipboard.writeText(text); msg(label + " disalin."); } catch(e) { msg(text); } };
+  const admin = async (action, arg) => { try { await api("kq_admin", {p_code:code, p_token:token, p_action:action, p_arg:arg ?? null}); pollBoard(); } catch(e) { msg(e.message, true); } };
+  $("#bCopy").onclick = () => copy(joinUrl, "Tautan peserta");
+  if ($("#bAdmin")) $("#bAdmin").onclick = () => copy(`${baseUrl()}?papan=${code}&t=${token}`, "Tautan kendali (jangan dibagikan ke peserta)");
+  $("#bProm").onclick = () => { board.showPromises = !board.showPromises; boardScreen(); };
+  $("#bBack").onclick = () => { stopBoard(); history.replaceState(null, "", baseUrl()); document.body.classList.remove("wide"); go("teach"); };
+  $("#bFull").onclick = async () => { try { document.fullscreenElement ? await document.exitFullscreen() : await document.documentElement.requestFullscreen(); } catch(e) {} };
+  if (token) {
+    $("#bToggle").onclick = () => admin(board.data?.is_open ? "close" : "open");
+    $("#bMod").onclick = () => { board.moderate = !board.moderate; boardScreen(); };
+    $("#bUnhide").onclick = () => admin("unhide_all");
+    $("#bReset").onclick = () => {
+      const b = $("#bReset");
+      if (b.dataset.armed) { admin("reset"); b.textContent = "Reset jawaban"; delete b.dataset.armed; }
+      else { b.dataset.armed = "1"; b.textContent = "Yakin? Klik lagi untuk reset"; setTimeout(() => { if (b.isConnected) { b.textContent = "Reset jawaban"; delete b.dataset.armed; } }, 4000); }
+    };
+  }
+  $("#cloud").onclick = (e) => { const w = e.target.closest(".word"); if (w && board.moderate && token) admin("hide", w.dataset.text); };
+  stopBoard(); pollBoard(); board.timer = setInterval(() => { if (document.visibilityState === "visible") pollBoard(); }, 3000);
+}
+function stopBoard(){ clearInterval(board.timer); board.timer = null; }
+async function pollBoard(){
+  if (S.screen !== "board") return stopBoard();
+  let d; try { d = await api("kq_results", {p_code:board.code}); } catch(e) {
+    if (board.data) return;   // gangguan sesaat: tetap tampilkan data terakhir
+    const notFound = /tidak ditemukan/i.test(e.message);
+    if ($("#bTitle")) $("#bTitle").textContent = notFound ? "Kode kelas tidak ditemukan" : "Gagal memuat papan";
+    const c = $("#cloud");
+    if (c) c.innerHTML = notFound
+      ? `<p class="cloud-empty">Kode <b>${esc(board.code)}</b> belum terdaftar.<br><small>Kode kelas selalu 5 huruf/angka. Klik Keluar, lalu buat kelas baru atau buka papan dengan kode yang benar.</small></p>`
+      : `<p class="cloud-empty">${esc(e.message)}<br><small>Papan akan mencoba lagi otomatis setiap 3 detik.</small></p>`;
+    if (notFound) { stopBoard(); const j = document.querySelector(".bjoin"); if (j) j.hidden = true; }
+    return;
+  }
+  board.data = d; const sig = JSON.stringify(d); if (sig === board.sig) return; board.sig = sig;
+  if (!$("#cloud")) return;
+  $("#bTitle").textContent = d.title; $("#bTotal").textContent = d.total;
+  $("#bOpen").innerHTML = d.is_open ? '<span style="color:var(--lime)">pengisian dibuka</span>' : '<span style="color:var(--coral)">pengisian ditutup</span>';
+  if ($("#bToggle")) $("#bToggle").textContent = d.is_open ? "Tutup pengisian" : "Buka pengisian";
+  drawCloud(d.norms);
+  const max = d.total || 1;
+  $("#top3").innerHTML = d.norms.slice(0,3).map((n,i) => `<li><span class="t3n" style="background:${CLOUD_COLORS[i]}">${i+1}</span>
+    <div class="t3b"><b>${esc(n.text)}</b><div class="t3bar"><i style="width:${n.count/max*100}%; background:${CLOUD_COLORS[i]}"></i></div>
+    <small>${n.count} dari ${d.total} peserta (${Math.round(n.count/max*100)}%)</small></div></li>`).join("") || '<li class="tiny" style="color:#bdb8e3">Menunggu jawaban peserta…</li>';
+  $("#rank").innerHTML = d.norms.map((n,i) => `<li><span>${i+1}</span><span>${esc(n.text)}</span><span>${n.count}</span></li>`).join("") || '<li style="color:#bdb8e3; display:block">Belum ada.</li>';
+  if ($("#proms")) $("#proms").innerHTML = d.promises.map(p => `<li>“${esc(p)}”</li>`).join("") || '<li style="color:#bdb8e3">Belum ada.</li>';
+}
+function drawCloud(norms){
+  const box = $("#cloud");
+  if (!norms.length) { box.innerHTML = `<p class="cloud-empty">Menunggu peserta mengirim pilihan norma…<br><small>Norma yang paling banyak dipilih akan tampil paling besar.</small></p>`; board.words = new Map(); return; }
+  if (box.querySelector(".cloud-empty")) box.innerHTML = "";
+  const counts = norms.map(n => n.count); const hi = Math.max(...counts), lo = Math.min(...counts);
+  const wide = box.clientWidth > 700; const minF = wide ? 20 : 15, maxF = wide ? 66 : 40;
+  // kata terbesar di tengah, sisanya berselang-seling ke kiri dan kanan
+  const arranged = []; norms.forEach((n,i) => { if (i % 2 === 0) arranged.push(n); else arranged.unshift(n); });
+  const seen = new Set();
+  arranged.forEach((n) => {
+    const rank = norms.indexOf(n);
+    const size = hi === lo ? (minF + maxF) / 2.2 : minF + (maxF - minF) * Math.pow((n.count - lo) / (hi - lo), 0.8);
+    let el = board.words.get(n.key);
+    if (!el) { el = document.createElement("span"); el.className = "word pop"; el.dataset.text = n.key; board.words.set(n.key, el); }
+    el.textContent = n.text; el.title = `${n.count} peserta`;
+    el.style.fontSize = size.toFixed(1) + "px"; el.style.color = CLOUD_COLORS[rank % CLOUD_COLORS.length];
+    el.style.fontWeight = rank < 3 ? 800 : 600; el.style.opacity = rank < 3 ? 1 : .88;
+    box.appendChild(el); seen.add(n.key);
+  });
+  for (const [k, el] of board.words) if (!seen.has(k)) { el.remove(); board.words.delete(k); }
+}
+
+/* ============ BOOT ============ */
+(() => {
+  const q = new URLSearchParams(location.search);
+  const papan = cleanCode(q.get("papan")), t = q.get("t"), kelas = cleanCode(q.get("kelas"));
+  if (papan) {
+    if (t && /^[0-9a-f-]{36}$/i.test(t)) { setToken(papan, t); history.replaceState(null, "", `${baseUrl()}?papan=${papan}`); }
+    board.code = papan; S.screen = "board";
+  } else {
+    if (S.screen === "board") S.screen = "teach";
+    if (kelas) {
+      // Dibuka lewat QR / tautan kelas: selalu mulai dari halaman awal (nama & kode kelas).
+      S.screen = "home";
+      if (kelas !== S.room) { S.room = kelas; S.roomTitle = ""; S.sent = false; }
+      save();
+      history.replaceState(null, "", baseUrl());
+      if (ONLINE) api("kq_room_info", {p_code:kelas}).then(i => { S.roomTitle = i.title; save(); if (S.screen === "home") render(); })
+        .catch(() => { S.room = ""; S.roomTitle = ""; save(); if (S.screen === "home") { render(); note("homeMsg", "Kode kelas dari tautan tidak ditemukan. Ketik kode kelas dari pengajar.", true); } });
+    }
+  }
+})();
+render();
+</script>
+</body>
+</html>
