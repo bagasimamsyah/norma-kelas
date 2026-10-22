@@ -236,7 +236,7 @@ function home(){
     <label class="field" for="nick">Nama panggilanmu<input class="input" id="nick" maxlength="24" placeholder="mis. Rina" value="${esc(S.name)}" autocomplete="off"></label>
     <label class="field" for="room">Kode kelas <span class="tiny muted" style="font-weight:500">(5 huruf/angka dari pengajar)</span>
       <input class="input code" id="room" maxlength="5" placeholder="mis. K7QMB" value="${esc(S.room)}" autocomplete="off" inputmode="text"></label>
-    ${S.roomTitle ? `<p class="tiny" style="font-weight:700">Kelas: ${esc(S.roomTitle)}</p>` : ""}
+    <p class="tiny" style="font-weight:700" id="roomTitleLine" ${S.roomTitle ? "" : "hidden"}>Kelas: ${esc(S.roomTitle)}</p>
     <div id="homeMsg"></div>
     ${S.sent ? `<p class="fb good">Kamu sudah mengirim pilihan${S.name ? `, ${esc(S.name)}` : ""}. Tekan tombol di bawah untuk melihat atau mengubahnya.</p>` : ""}
     <button class="btn block" type="submit">${S.sent ? "Lihat pilihanku" : "Lanjut pilih norma"} →</button>
@@ -493,8 +493,18 @@ function drawCloud(norms){
       if (kelas !== S.room) { S.room = kelas; S.roomTitle = ""; S.sent = false; }
       save();
       history.replaceState(null, "", baseUrl());
-      if (ONLINE) api("kq_room_info", {p_code:kelas}).then(i => { S.roomTitle = i.title; save(); if (S.screen === "home") render(); })
-        .catch(() => { S.room = ""; S.roomTitle = ""; save(); if (S.screen === "home") { render(); note("homeMsg", "Kode kelas dari tautan tidak ditemukan. Ketik kode kelas dari pengajar.", true); } });
+      // Hasil pengecekan datang belakangan: perbarui baris nama kelas saja, JANGAN gambar ulang
+      // halaman agar nama yang sedang diketik peserta tidak terhapus (penting saat sinyal lambat).
+      if (ONLINE) api("kq_room_info", {p_code:kelas}).then(i => {
+          if (S.room !== kelas) return;
+          S.roomTitle = i.title; save();
+          const l = $("#roomTitleLine"); if (l) { l.textContent = "Kelas: " + i.title; l.hidden = false; }
+        }).catch((e) => {
+          if (S.room !== kelas || !/tidak ditemukan/i.test(e.message)) return;   // gangguan sinyal: dicek lagi saat menekan Lanjut
+          S.room = ""; S.roomTitle = ""; save();
+          const r = $("#room"); if (r && r.value === kelas) r.value = "";
+          note("homeMsg", "Kode kelas dari tautan tidak ditemukan. Ketik kode kelas dari pengajar.", true);
+        });
     }
   }
 })();
